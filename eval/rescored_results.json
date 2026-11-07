@@ -1,0 +1,1141 @@
+{
+  "model": "ollama:qwen3:8b",
+  "evaluation_note": "Re-scored saved SQL using the revised gold SQL in questions.json; no new model calls were made.",
+  "no_retry": 0.96,
+  "with_retry": 1.0,
+  "questions": [
+    {
+      "id": 1,
+      "difficulty": "easy",
+      "question": "How many customers are there?",
+      "correct_retry": true,
+      "correct_noretry": false,
+      "sql_errors": 1,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Customer;",
+      "noretry_sql": null,
+      "gold_sql": "SELECT COUNT(*) FROM Customer",
+      "answer": "59",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM customers;"
+          },
+          "result": {
+            "error": "no such table: customers"
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 3,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Customer;"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                59
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "difficulty": "easy",
+      "question": "How many tracks are in the database?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Track;",
+      "noretry_sql": "SELECT COUNT(*) FROM Track;",
+      "gold_sql": "SELECT COUNT(*) FROM Track",
+      "answer": "3503",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Track;"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                3503
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "difficulty": "easy",
+      "question": "List the names of all genres.",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT [Name] FROM [Genre];",
+      "noretry_sql": "SELECT [Name] FROM [Genre];",
+      "gold_sql": "SELECT Name FROM Genre",
+      "answer": "Rock\nJazz\nMetal\nAlternative & Punk\nRock And Roll\nBlues\nLatin\nReggae\nPop\nSoundtrack\nBossa Nova\nEasy Listening\nHeavy Metal\nR&B/Soul\nElectronica/Dance\nWorld\nHip Hop/Rap\nScience Fiction\nTV Shows\nSci Fi & Fantasy\nDrama\nComedy\nAlternative\nClassical\nOpera",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT [Name] FROM [Genre];"
+          },
+          "result": {
+            "columns": [
+              "Name"
+            ],
+            "rows": [
+              [
+                "Rock"
+              ],
+              [
+                "Jazz"
+              ],
+              [
+                "Metal"
+              ],
+              [
+                "Alternative & Punk"
+              ],
+              [
+                "Rock And Roll"
+              ],
+              [
+                "Blues"
+              ],
+              [
+                "Latin"
+              ],
+              [
+                "Reggae"
+              ],
+              [
+                "Pop"
+              ],
+              [
+                "Soundtrack"
+              ],
+              [
+                "Bossa Nova"
+              ],
+              [
+                "Easy Listening"
+              ],
+              [
+                "Heavy Metal"
+              ],
+              [
+                "R&B/Soul"
+              ],
+              [
+                "Electronica/Dance"
+              ],
+              [
+                "World"
+              ],
+              [
+                "Hip Hop/Rap"
+              ],
+              [
+                "Science Fiction"
+              ],
+              [
+                "TV Shows"
+              ],
+              [
+                "Sci Fi & Fantasy"
+              ],
+              [
+                "Drama"
+              ],
+              [
+                "Comedy"
+              ],
+              [
+                "Alternative"
+              ],
+              [
+                "Classical"
+              ],
+              [
+                "Opera"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "difficulty": "easy",
+      "question": "What are the names of the 5 longest tracks?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT Name FROM Track ORDER BY Milliseconds DESC LIMIT 5;",
+      "noretry_sql": "SELECT Name FROM Track ORDER BY Milliseconds DESC LIMIT 5;",
+      "gold_sql": "SELECT Name FROM Track ORDER BY Milliseconds DESC LIMIT 5",
+      "answer": "The names of the 5 longest tracks are:\n- Occupation / Precipice\n- Through a Looking Glass\n- Greetings from Earth, Pt. 1\n- The Man With Nine Lives\n- Battlestar Galactica, Pt. 2",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT Name FROM Track ORDER BY Milliseconds DESC LIMIT 5;"
+          },
+          "result": {
+            "columns": [
+              "Name"
+            ],
+            "rows": [
+              [
+                "Occupation / Precipice"
+              ],
+              [
+                "Through a Looking Glass"
+              ],
+              [
+                "Greetings from Earth, Pt. 1"
+              ],
+              [
+                "The Man With Nine Lives"
+              ],
+              [
+                "Battlestar Galactica, Pt. 2"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "difficulty": "easy",
+      "question": "How many customers are from Brazil?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';",
+      "noretry_sql": "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';",
+      "gold_sql": "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil'",
+      "answer": "5",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                5
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "difficulty": "easy",
+      "question": "What is the total revenue across all invoices?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT SUM(Total) AS TotalRevenue FROM Invoice;",
+      "noretry_sql": "SELECT SUM(Total) AS TotalRevenue FROM Invoice;",
+      "gold_sql": "SELECT SUM(Total) FROM Invoice",
+      "answer": "The total revenue across all invoices is $2328.60.\n\n**Answer:**  \n2328.60",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT SUM(Total) AS TotalRevenue FROM Invoice;"
+          },
+          "result": {
+            "columns": [
+              "TotalRevenue"
+            ],
+            "rows": [
+              [
+                2328.6
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "difficulty": "easy",
+      "question": "How many employees work at the company?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Employee;",
+      "noretry_sql": "SELECT COUNT(*) FROM Employee;",
+      "gold_sql": "SELECT COUNT(*) FROM Employee",
+      "answer": "8",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Employee;"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                8
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "difficulty": "easy",
+      "question": "How many albums are there?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM [Album];",
+      "noretry_sql": "SELECT COUNT(*) FROM [Album];",
+      "gold_sql": "SELECT COUNT(*) FROM Album",
+      "answer": "347",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM [Album];"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                347
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "difficulty": "medium",
+      "question": "Which country has the most customers?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT Country, COUNT(*) as CustomerCount FROM Customer GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1;",
+      "noretry_sql": "SELECT Country, COUNT(*) as CustomerCount FROM Customer GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1;",
+      "gold_sql": "SELECT Country, COUNT(*) AS CustomerCount FROM Customer GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1",
+      "answer": "The country with the most customers is USA.",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT Country, COUNT(*) as CustomerCount FROM Customer GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "Country",
+              "CustomerCount"
+            ],
+            "rows": [
+              [
+                "USA",
+                13
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "difficulty": "medium",
+      "question": "How many tracks are in the Rock genre?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = 'Rock');",
+      "noretry_sql": "SELECT COUNT(*) FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = 'Rock');",
+      "gold_sql": "SELECT COUNT(*) FROM Track t JOIN Genre g ON t.GenreId = g.GenreId WHERE g.Name = 'Rock'",
+      "answer": "1297",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = 'Rock');"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                1297
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "difficulty": "medium",
+      "question": "List the titles of all albums by AC/DC.",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT Album.Title FROM Album INNER JOIN Artist ON Album.ArtistId = Artist.ArtistId WHERE Artist.Name = 'AC/DC';",
+      "noretry_sql": "SELECT Album.Title FROM Album INNER JOIN Artist ON Album.ArtistId = Artist.ArtistId WHERE Artist.Name = 'AC/DC';",
+      "gold_sql": "SELECT a.Title FROM Album a JOIN Artist ar ON a.ArtistId = ar.ArtistId WHERE ar.Name = 'AC/DC'",
+      "answer": "For Those About To Rock We Salute You\nLet There Be Rock",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT Album.Title FROM Album INNER JOIN Artist ON Album.ArtistId = Artist.ArtistId WHERE Artist.Name = 'AC/DC';"
+          },
+          "result": {
+            "columns": [
+              "Title"
+            ],
+            "rows": [
+              [
+                "For Those About To Rock We Salute You"
+              ],
+              [
+                "Let There Be Rock"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "difficulty": "medium",
+      "question": "Which artist has the most albums?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT a.Name, COUNT(*) as AlbumCount FROM Album al JOIN Artist a ON al.ArtistId = a.ArtistId GROUP BY a.ArtistId ORDER BY AlbumCount DESC LIMIT 1;",
+      "noretry_sql": "SELECT a.Name, COUNT(*) as AlbumCount FROM Album al JOIN Artist a ON al.ArtistId = a.ArtistId GROUP BY a.ArtistId ORDER BY AlbumCount DESC LIMIT 1;",
+      "gold_sql": "SELECT ar.Name, COUNT(*) AS AlbumCount FROM Artist ar JOIN Album a ON a.ArtistId = ar.ArtistId GROUP BY ar.ArtistId ORDER BY AlbumCount DESC LIMIT 1",
+      "answer": "Iron Maiden",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT a.Name, COUNT(*) as AlbumCount FROM Album al JOIN Artist a ON al.ArtistId = a.ArtistId GROUP BY a.ArtistId ORDER BY AlbumCount DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "Name",
+              "AlbumCount"
+            ],
+            "rows": [
+              [
+                "Iron Maiden",
+                21
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "difficulty": "medium",
+      "question": "Which employee supports the most customers? Give the first and last name.",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT e.FirstName, e.LastName FROM Employee e JOIN Customer c ON e.EmployeeId = c.SupportRepId GROUP BY e.EmployeeId ORDER BY COUNT(c.CustomerId) DESC LIMIT 1;",
+      "noretry_sql": "SELECT e.FirstName, e.LastName FROM Employee e JOIN Customer c ON e.EmployeeId = c.SupportRepId GROUP BY e.EmployeeId ORDER BY COUNT(c.CustomerId) DESC LIMIT 1;",
+      "gold_sql": "SELECT e.FirstName, e.LastName FROM Employee e JOIN Customer c ON c.SupportRepId = e.EmployeeId GROUP BY e.EmployeeId ORDER BY COUNT(*) DESC LIMIT 1",
+      "answer": "Jane Peacock",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT e.FirstName, e.LastName FROM Employee e JOIN Customer c ON e.EmployeeId = c.SupportRepId GROUP BY e.EmployeeId ORDER BY COUNT(c.CustomerId) DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "FirstName",
+              "LastName"
+            ],
+            "rows": [
+              [
+                "Jane",
+                "Peacock"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "difficulty": "medium",
+      "question": "How many invoices were billed to Germany?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry = 'Germany';",
+      "noretry_sql": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry = 'Germany';",
+      "gold_sql": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry = 'Germany'",
+      "answer": "28",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry = 'Germany';"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                28
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "difficulty": "medium",
+      "question": "Which media type is used by the most tracks?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT MediaType.Name, COUNT(Track.MediaTypeId) as TrackCount FROM Track JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId GROUP BY MediaType.Name ORDER BY TrackCount DESC LIMIT 1;",
+      "noretry_sql": "SELECT MediaType.Name, COUNT(Track.MediaTypeId) as TrackCount FROM Track JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId GROUP BY MediaType.Name ORDER BY TrackCount DESC LIMIT 1;",
+      "gold_sql": "SELECT m.Name, COUNT(t.MediaTypeId) AS TrackCount FROM Track t JOIN MediaType m ON t.MediaTypeId = m.MediaTypeId GROUP BY m.Name ORDER BY TrackCount DESC LIMIT 1",
+      "answer": "\"MPEG audio file\"",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT MediaType.Name, COUNT(Track.MediaTypeId) as TrackCount FROM Track JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId GROUP BY MediaType.Name ORDER BY TrackCount DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "Name",
+              "TrackCount"
+            ],
+            "rows": [
+              [
+                "MPEG audio file",
+                3034
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "difficulty": "medium",
+      "question": "How many tracks are on the playlist named 'Classical'?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Playlist JOIN PlaylistTrack ON Playlist.PlaylistId = PlaylistTrack.PlaylistId WHERE Playlist.Name = 'Classical';",
+      "noretry_sql": "SELECT COUNT(*) FROM Playlist JOIN PlaylistTrack ON Playlist.PlaylistId = PlaylistTrack.PlaylistId WHERE Playlist.Name = 'Classical';",
+      "gold_sql": "SELECT COUNT(*) FROM PlaylistTrack pt JOIN Playlist p ON pt.PlaylistId = p.PlaylistId WHERE p.Name = 'Classical'",
+      "answer": "75",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Playlist JOIN PlaylistTrack ON Playlist.PlaylistId = PlaylistTrack.PlaylistId WHERE Playlist.Name = 'Classical';"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                75
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "difficulty": "medium",
+      "question": "How much has the customer Frank Harris spent in total?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT SUM(Invoice.Total) AS TotalSpent FROM Customer JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId WHERE Customer.FirstName = 'Frank' AND Customer.LastName = 'Harris';",
+      "noretry_sql": "SELECT SUM(Invoice.Total) AS TotalSpent FROM Customer JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId WHERE Customer.FirstName = 'Frank' AND Customer.LastName = 'Harris';",
+      "gold_sql": "SELECT SUM(i.Total) FROM Invoice i JOIN Customer c ON i.CustomerId = c.CustomerId WHERE c.FirstName = 'Frank' AND c.LastName = 'Harris'",
+      "answer": "The total amount Frank Harris has spent is $37.62.\n\n**Answer:**  \n37.62",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT SUM(Invoice.Total) AS TotalSpent FROM Customer JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId WHERE Customer.FirstName = 'Frank' AND Customer.LastName = 'Harris';"
+          },
+          "result": {
+            "columns": [
+              "TotalSpent"
+            ],
+            "rows": [
+              [
+                37.62
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "difficulty": "medium",
+      "question": "List the names of the tracks on the album 'Let There Be Rock'.",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT Track.Name FROM Track JOIN Album ON Track.AlbumId = Album.AlbumId WHERE Album.Title = 'Let There Be Rock';",
+      "noretry_sql": "SELECT Track.Name FROM Track JOIN Album ON Track.AlbumId = Album.AlbumId WHERE Album.Title = 'Let There Be Rock';",
+      "gold_sql": "SELECT t.Name FROM Track t JOIN Album a ON t.AlbumId = a.AlbumId WHERE a.Title = 'Let There Be Rock'",
+      "answer": "Let There Be Rock track names:\n- Go Down\n- Dog Eat Dog\n- Let There Be Rock\n- Bad Boy Boogie\n- Problem Child\n- Overdose\n- Hell Ain't A Bad Place To Be\n- Whole Lotta Rosie",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT Track.Name FROM Track JOIN Album ON Track.AlbumId = Album.AlbumId WHERE Album.Title = 'Let There Be Rock';"
+          },
+          "result": {
+            "columns": [
+              "Name"
+            ],
+            "rows": [
+              [
+                "Go Down"
+              ],
+              [
+                "Dog Eat Dog"
+              ],
+              [
+                "Let There Be Rock"
+              ],
+              [
+                "Bad Boy Boogie"
+              ],
+              [
+                "Problem Child"
+              ],
+              [
+                "Overdose"
+              ],
+              [
+                "Hell Ain't A Bad Place To Be"
+              ],
+              [
+                "Whole Lotta Rosie"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "difficulty": "hard",
+      "question": "Who are the top 5 customers by total spending? Give first name, last name and total.",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT c.FirstName, c.LastName, SUM(i.Total) AS Total FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId GROUP BY c.CustomerId ORDER BY Total DESC LIMIT 5;",
+      "noretry_sql": "SELECT c.FirstName, c.LastName, SUM(i.Total) AS Total FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId GROUP BY c.CustomerId ORDER BY Total DESC LIMIT 5;",
+      "gold_sql": "SELECT c.FirstName, c.LastName, SUM(i.Total) FROM Customer c JOIN Invoice i ON i.CustomerId = c.CustomerId GROUP BY c.CustomerId ORDER BY SUM(i.Total) DESC LIMIT 5",
+      "answer": "Helena Hol\u00ed 49.62  \nRichard Cunningham 47.62  \nLuis Rojas 46.62  \nLadislav Kov\u00e1cs 45.62  \nHugh O'Reilly 45.62",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT c.FirstName, c.LastName, SUM(i.Total) AS Total FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId GROUP BY c.CustomerId ORDER BY Total DESC LIMIT 5;"
+          },
+          "result": {
+            "columns": [
+              "FirstName",
+              "LastName",
+              "Total"
+            ],
+            "rows": [
+              [
+                "Helena",
+                "Hol\u00fd",
+                49.62
+              ],
+              [
+                "Richard",
+                "Cunningham",
+                47.62
+              ],
+              [
+                "Luis",
+                "Rojas",
+                46.62
+              ],
+              [
+                "Ladislav",
+                "Kov\u00e1cs",
+                45.62
+              ],
+              [
+                "Hugh",
+                "O'Reilly",
+                45.62
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "difficulty": "hard",
+      "question": "Which genre has the highest average track length?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT g.Name, AVG(t.Milliseconds) AS AvgLength FROM Track t JOIN Genre g ON t.GenreId = g.GenreId GROUP BY g.GenreId ORDER BY AvgLength DESC LIMIT 1;",
+      "noretry_sql": "SELECT g.Name, AVG(t.Milliseconds) AS AvgLength FROM Track t JOIN Genre g ON t.GenreId = g.GenreId GROUP BY g.GenreId ORDER BY AvgLength DESC LIMIT 1;",
+      "gold_sql": "SELECT g.Name, AVG(t.Milliseconds) AS AvgLength FROM Genre g JOIN Track t ON t.GenreId = g.GenreId GROUP BY g.GenreId ORDER BY AvgLength DESC LIMIT 1",
+      "answer": "Sci Fi & Fantasy",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT g.Name, AVG(t.Milliseconds) AS AvgLength FROM Track t JOIN Genre g ON t.GenreId = g.GenreId GROUP BY g.GenreId ORDER BY AvgLength DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "Name",
+              "AvgLength"
+            ],
+            "rows": [
+              [
+                "Sci Fi & Fantasy",
+                2911783.0384615385
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "difficulty": "hard",
+      "question": "Which artist has generated the most sales revenue?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT Artist.Name, SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS TotalRevenue\nFROM InvoiceLine\nJOIN Track ON InvoiceLine.TrackId = Track.TrackId\nJOIN Album ON Track.AlbumId = Album.AlbumId\nJOIN Artist ON Album.ArtistId = Artist.ArtistId\nGROUP BY Artist.ArtistId\nORDER BY TotalRevenue DESC\nLIMIT 1;",
+      "noretry_sql": "SELECT Artist.Name, SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS TotalRevenue\nFROM InvoiceLine\nJOIN Track ON InvoiceLine.TrackId = Track.TrackId\nJOIN Album ON Track.AlbumId = Album.AlbumId\nJOIN Artist ON Album.ArtistId = Artist.ArtistId\nGROUP BY Artist.ArtistId\nORDER BY TotalRevenue DESC\nLIMIT 1;",
+      "gold_sql": "SELECT ar.Name, SUM(il.UnitPrice * il.Quantity) AS TotalRevenue FROM InvoiceLine il JOIN Track t ON il.TrackId = t.TrackId JOIN Album a ON t.AlbumId = a.AlbumId JOIN Artist ar ON a.ArtistId = ar.ArtistId GROUP BY ar.ArtistId ORDER BY TotalRevenue DESC LIMIT 1",
+      "answer": "\"Iron Maiden\" with $138.60 in revenue.",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT Artist.Name, SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS TotalRevenue\nFROM InvoiceLine\nJOIN Track ON InvoiceLine.TrackId = Track.TrackId\nJOIN Album ON Track.AlbumId = Album.AlbumId\nJOIN Artist ON Album.ArtistId = Artist.ArtistId\nGROUP BY Artist.ArtistId\nORDER BY TotalRevenue DESC\nLIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "Name",
+              "TotalRevenue"
+            ],
+            "rows": [
+              [
+                "Iron Maiden",
+                138.6
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "difficulty": "hard",
+      "question": "In which year was total invoice revenue the highest?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT strftime('%Y', InvoiceDate) AS InvoiceYear, SUM(Total) AS TotalRevenue FROM Invoice GROUP BY InvoiceYear ORDER BY TotalRevenue DESC LIMIT 1;",
+      "noretry_sql": "SELECT strftime('%Y', InvoiceDate) AS InvoiceYear, SUM(Total) AS TotalRevenue FROM Invoice GROUP BY InvoiceYear ORDER BY TotalRevenue DESC LIMIT 1;",
+      "gold_sql": "SELECT strftime('%Y', InvoiceDate) AS InvoiceYear, SUM(Total) AS TotalRevenue FROM Invoice GROUP BY InvoiceYear ORDER BY TotalRevenue DESC LIMIT 1",
+      "answer": "2022",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT strftime('%Y', InvoiceDate) AS InvoiceYear, SUM(Total) AS TotalRevenue FROM Invoice GROUP BY InvoiceYear ORDER BY TotalRevenue DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "InvoiceYear",
+              "TotalRevenue"
+            ],
+            "rows": [
+              [
+                "2022",
+                481.45
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "difficulty": "hard",
+      "question": "How many customers have spent more than 40 in total?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM (SELECT CustomerId, SUM(Total) AS TotalSpent FROM Invoice GROUP BY CustomerId HAVING SUM(Total) > 40) AS CustomerSpending;",
+      "noretry_sql": "SELECT COUNT(*) FROM (SELECT CustomerId, SUM(Total) AS TotalSpent FROM Invoice GROUP BY CustomerId HAVING SUM(Total) > 40) AS CustomerSpending;",
+      "gold_sql": "SELECT COUNT(*) FROM (SELECT CustomerId FROM Invoice GROUP BY CustomerId HAVING SUM(Total) > 40)",
+      "answer": "14",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM (SELECT CustomerId, SUM(Total) AS TotalSpent FROM Invoice GROUP BY CustomerId HAVING SUM(Total) > 40) AS CustomerSpending;"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                14
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "difficulty": "hard",
+      "question": "How many tracks have never been purchased?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT COUNT(*) FROM Track LEFT JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId WHERE InvoiceLine.TrackId IS NULL;",
+      "noretry_sql": "SELECT COUNT(*) FROM Track LEFT JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId WHERE InvoiceLine.TrackId IS NULL;",
+      "gold_sql": "SELECT COUNT(*) FROM Track WHERE TrackId NOT IN (SELECT TrackId FROM InvoiceLine)",
+      "answer": "1519",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT COUNT(*) FROM Track LEFT JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId WHERE InvoiceLine.TrackId IS NULL;"
+          },
+          "result": {
+            "columns": [
+              "COUNT(*)"
+            ],
+            "rows": [
+              [
+                1519
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "difficulty": "hard",
+      "question": "Which genre has sold the most tracks (by quantity)?",
+      "correct_retry": true,
+      "correct_noretry": true,
+      "sql_errors": 0,
+      "finished": true,
+      "agent_sql": "SELECT Genre.Name, SUM(InvoiceLine.Quantity) AS TotalTracks FROM Track JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId JOIN Genre ON Track.GenreId = Genre.GenreId GROUP BY Genre.Name ORDER BY TotalTracks DESC LIMIT 1;",
+      "noretry_sql": "SELECT Genre.Name, SUM(InvoiceLine.Quantity) AS TotalTracks FROM Track JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId JOIN Genre ON Track.GenreId = Genre.GenreId GROUP BY Genre.Name ORDER BY TotalTracks DESC LIMIT 1;",
+      "gold_sql": "SELECT g.Name, SUM(il.Quantity) AS TotalTracks FROM Track t JOIN InvoiceLine il ON t.TrackId = il.TrackId JOIN Genre g ON t.GenreId = g.GenreId GROUP BY g.Name ORDER BY TotalTracks DESC LIMIT 1",
+      "answer": "The genre with the most tracks sold is **Rock** with a total of **835** tracks. \n\nFinal answer: Rock",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "get_schema",
+          "args": {},
+          "result": "(schema returned)"
+        },
+        {
+          "step": 2,
+          "tool": "run_sql",
+          "args": {
+            "query": "SELECT Genre.Name, SUM(InvoiceLine.Quantity) AS TotalTracks FROM Track JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId JOIN Genre ON Track.GenreId = Genre.GenreId GROUP BY Genre.Name ORDER BY TotalTracks DESC LIMIT 1;"
+          },
+          "result": {
+            "columns": [
+              "Name",
+              "TotalTracks"
+            ],
+            "rows": [
+              [
+                "Rock",
+                835
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ]
+    }
+  ]
+}

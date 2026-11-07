@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "difficulty": "easy",
+    "question": "How many customers are there?",
+    "gold_sql": "SELECT COUNT(*) FROM Customer"
+  },
+  {
+    "id": 2,
+    "difficulty": "easy",
+    "question": "How many tracks are in the database?",
+    "gold_sql": "SELECT COUNT(*) FROM Track"
+  },
+  {
+    "id": 3,
+    "difficulty": "easy",
+    "question": "List the names of all genres.",
+    "gold_sql": "SELECT Name FROM Genre"
+  },
+  {
+    "id": 4,
+    "difficulty": "easy",
+    "question": "What are the names of the 5 longest tracks?",
+    "gold_sql": "SELECT Name FROM Track ORDER BY Milliseconds DESC LIMIT 5"
+  },
+  {
+    "id": 5,
+    "difficulty": "easy",
+    "question": "How many customers are from Brazil?",
+    "gold_sql": "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil'"
+  },
+  {
+    "id": 6,
+    "difficulty": "easy",
+    "question": "What is the total revenue across all invoices?",
+    "gold_sql": "SELECT SUM(Total) FROM Invoice"
+  },
+  {
+    "id": 7,
+    "difficulty": "easy",
+    "question": "How many employees work at the company?",
+    "gold_sql": "SELECT COUNT(*) FROM Employee"
+  },
+  {
+    "id": 8,
+    "difficulty": "easy",
+    "question": "How many albums are there?",
+    "gold_sql": "SELECT COUNT(*) FROM Album"
+  },
+  {
+    "id": 9,
+    "difficulty": "medium",
+    "question": "Which country has the most customers?",
+    "gold_sql": "SELECT Country, COUNT(*) AS CustomerCount FROM Customer GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1"
+  },
+  {
+    "id": 10,
+    "difficulty": "medium",
+    "question": "How many tracks are in the Rock genre?",
+    "gold_sql": "SELECT COUNT(*) FROM Track t JOIN Genre g ON t.GenreId = g.GenreId WHERE g.Name = 'Rock'"
+  },
+  {
+    "id": 11,
+    "difficulty": "medium",
+    "question": "List the titles of all albums by AC/DC.",
+    "gold_sql": "SELECT a.Title FROM Album a JOIN Artist ar ON a.ArtistId = ar.ArtistId WHERE ar.Name = 'AC/DC'"
+  },
+  {
+    "id": 12,
+    "difficulty": "medium",
+    "question": "Which artist has the most albums?",
+    "gold_sql": "SELECT ar.Name, COUNT(*) AS AlbumCount FROM Artist ar JOIN Album a ON a.ArtistId = ar.ArtistId GROUP BY ar.ArtistId ORDER BY AlbumCount DESC LIMIT 1"
+  },
+  {
+    "id": 13,
+    "difficulty": "medium",
+    "question": "Which employee supports the most customers? Give the first and last name.",
+    "gold_sql": "SELECT e.FirstName, e.LastName FROM Employee e JOIN Customer c ON c.SupportRepId = e.EmployeeId GROUP BY e.EmployeeId ORDER BY COUNT(*) DESC LIMIT 1"
+  },
+  {
+    "id": 14,
+    "difficulty": "medium",
+    "question": "How many invoices were billed to Germany?",
+    "gold_sql": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry = 'Germany'"
+  },
+  {
+    "id": 15,
+    "difficulty": "medium",
+    "question": "Which media type is used by the most tracks?",
+    "gold_sql": "SELECT m.Name, COUNT(t.MediaTypeId) AS TrackCount FROM Track t JOIN MediaType m ON t.MediaTypeId = m.MediaTypeId GROUP BY m.Name ORDER BY TrackCount DESC LIMIT 1"
+  },
+  {
+    "id": 16,
+    "difficulty": "medium",
+    "question": "How many tracks are on the playlist named 'Classical'?",
+    "gold_sql": "SELECT COUNT(*) FROM PlaylistTrack pt JOIN Playlist p ON pt.PlaylistId = p.PlaylistId WHERE p.Name = 'Classical'"
+  },
+  {
+    "id": 17,
+    "difficulty": "medium",
+    "question": "How much has the customer Frank Harris spent in total?",
+    "gold_sql": "SELECT SUM(i.Total) FROM Invoice i JOIN Customer c ON i.CustomerId = c.CustomerId WHERE c.FirstName = 'Frank' AND c.LastName = 'Harris'"
+  },
+  {
+    "id": 18,
+    "difficulty": "medium",
+    "question": "List the names of the tracks on the album 'Let There Be Rock'.",
+    "gold_sql": "SELECT t.Name FROM Track t JOIN Album a ON t.AlbumId = a.AlbumId WHERE a.Title = 'Let There Be Rock'"
+  },
+  {
+    "id": 19,
+    "difficulty": "hard",
+    "question": "Who are the top 5 customers by total spending? Give first name, last name and total.",
+    "gold_sql": "SELECT c.FirstName, c.LastName, SUM(i.Total) FROM Customer c JOIN Invoice i ON i.CustomerId = c.CustomerId GROUP BY c.CustomerId ORDER BY SUM(i.Total) DESC LIMIT 5"
+  },
+  {
+    "id": 20,
+    "difficulty": "hard",
+    "question": "Which genre has the highest average track length?",
+    "gold_sql": "SELECT g.Name, AVG(t.Milliseconds) AS AvgLength FROM Genre g JOIN Track t ON t.GenreId = g.GenreId GROUP BY g.GenreId ORDER BY AvgLength DESC LIMIT 1"
+  },
+  {
+    "id": 21,
+    "difficulty": "hard",
+    "question": "Which artist has generated the most sales revenue?",
+    "gold_sql": "SELECT ar.Name, SUM(il.UnitPrice * il.Quantity) AS TotalRevenue FROM InvoiceLine il JOIN Track t ON il.TrackId = t.TrackId JOIN Album a ON t.AlbumId = a.AlbumId JOIN Artist ar ON a.ArtistId = ar.ArtistId GROUP BY ar.ArtistId ORDER BY TotalRevenue DESC LIMIT 1"
+  },
+  {
+    "id": 22,
+    "difficulty": "hard",
+    "question": "In which year was total invoice revenue the highest?",
+    "gold_sql": "SELECT strftime('%Y', InvoiceDate) AS InvoiceYear, SUM(Total) AS TotalRevenue FROM Invoice GROUP BY InvoiceYear ORDER BY TotalRevenue DESC LIMIT 1"
+  },
+  {
+    "id": 23,
+    "difficulty": "hard",
+    "question": "How many customers have spent more than 40 in total?",
+    "gold_sql": "SELECT COUNT(*) FROM (SELECT CustomerId FROM Invoice GROUP BY CustomerId HAVING SUM(Total) > 40)"
+  },
+  {
+    "id": 24,
+    "difficulty": "hard",
+    "question": "How many tracks have never been purchased?",
+    "gold_sql": "SELECT COUNT(*) FROM Track WHERE TrackId NOT IN (SELECT TrackId FROM InvoiceLine)"
+  },
+  {
+    "id": 25,
+    "difficulty": "hard",
+    "question": "Which genre has sold the most tracks (by quantity)?",
+    "gold_sql": "SELECT g.Name, SUM(il.Quantity) AS TotalTracks FROM Track t JOIN InvoiceLine il ON t.TrackId = il.TrackId JOIN Genre g ON t.GenreId = g.GenreId GROUP BY g.Name ORDER BY TotalTracks DESC LIMIT 1"
+  }
+]
